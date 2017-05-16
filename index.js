@@ -1,17 +1,17 @@
 const personForm = document.querySelector('form')
 
-const renderName = (personName) => {
-  const em = document.createElement('em')
-  em.textContent = personName
-  return em
+const renderColor = (colorName) => {
+  const colorRendered = document.createElement('LI')
+  colorRendered.style.backgroundColor = colorName
+  colorRendered.style.height = '50px'
+  colorRendered.style.width = '100px'
+  return colorRendered
 }
 
-const renderColor = (hairColor) => {
-  const colorDiv = document.createElement('div')
-  colorDiv.style.backgroundColor = hairColor
-  colorDiv.style.height = '50px'
-  colorDiv.style.width = '100px'
-  return colorDiv
+const renderText = (text, name) => {
+  const textRendered = document.createElement('LI')
+  textRendered.textContent = text
+  return textRendered
 }
 
 const handleSubmit = (ev) => {
@@ -19,25 +19,17 @@ const handleSubmit = (ev) => {
   const form = ev.target
   const details = document.querySelector('.details')
 
-  const personName = form.personName.value
-  const hairColor = form.hairColor.value
-  const age = form.age.value
-  const birthplace = form.birthplace.value
-
-
-  const nameDiv = renderName(personName)
-  const colorDiv = renderColor(hairColor)
-
-  details.innerHTML = `
-    <ul>
-      <li>Name: ${personName}</li>
-      <li>Hair Color: ${colorDiv.outerHTML}</li>
-      <li>Age: ${age}</li>
-      <li>Birthplace: ${birthplace}</li>
-    </ul>
-  `
-
-  details.appendChild(nameDiv)
+  const elements = document.getElementsByTagName("input")
+  details.appendChild(document.createTextNode("___Person___"))
+  for(let i = 0; i < elements.length; i++) {
+    let node = ""
+    if(elements[i].type === "color") {
+      node = renderColor(elements[i].value)
+    } else {
+      node = renderText(elements[i].value, elements[i].name)
+    }
+    details.appendChild(node)
+  }
 }
 
 personForm.addEventListener('submit', handleSubmit)
