@@ -1,5 +1,10 @@
 const personForm = document.querySelector('form')
-console.log(personForm)
+
+const renderName = (personName) => {
+  const em = document.createElement('em')
+  em.textContent = personName
+  return em
+}
 
 const renderColor = (hairColor) => {
   const colorDiv = document.createElement('div')
@@ -19,9 +24,8 @@ const handleSubmit = (ev) => {
   const age = form.age.value
   const birthplace = form.birthplace.value
 
-  //const em = document.createElement('em')
-  //em.textContent = personName
 
+  const nameDiv = renderName(personName)
   const colorDiv = renderColor(hairColor)
 
   details.innerHTML = `
@@ -33,7 +37,7 @@ const handleSubmit = (ev) => {
     </ul>
   `
 
-  //details.appendChild(em)
+  details.appendChild(nameDiv)
 }
 
 personForm.addEventListener('submit', handleSubmit)
